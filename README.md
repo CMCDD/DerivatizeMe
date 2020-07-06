@@ -102,6 +102,7 @@ An example core molecule is the substituted furan This compound has 6 hydrogen a
 We can substitute with methoxy and chloro, for example, in other ways
 
 ### Example 3 -h systematic
+This only monosubstitutes, and may be influenced by -i and -a. -i (CH hydrogens only) is the default.
 ```
 ./dzme -h systematic -I ./subs -s cl.pdb,ome.pdb -x systematic.sdf
 ```
