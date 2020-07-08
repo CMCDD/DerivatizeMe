@@ -38,6 +38,7 @@ Example:   ./dzme -m ./molecule.xyz -h list 7,9,13 -I ./substituents -O ./output
                     all             {allows substitution of all hydrogens in a systematic manner}
                     ring            {allows substitution of all hydrogens attached to rings a systematic manner}
                     random  30      {allows substitution of approximately thirty percent of all hydrogens systematically (default)
+                    rand 6          {allows substitution of 6 randomly prechosen hydrogen atoms
                     systematic      {allows monosubstitution of all hydrogens in a systematic manner}
  -I substituentdir:
                     directory containing substituents (default "./subs")
@@ -114,6 +115,22 @@ The first hydrogen in the molecule is atom #8, the second is #9. The absolute at
 ./dzme -h list 8,9 -I ./subs -s cl.pdb,ome.pdb -x list.sdf
 ```
 ![alt text](https://github.com/CMCDD/DerivatizeMe/blob/master/graphics/list.png)
+
+### Example 5 large systems
+The limit here is 10^6. It produces this number of derivatives in just over an hour on one core of an E5-1620 v4. The sdf produced is 9.3GB.
+```
+./dzme -m fosamprenavir.pdb -h all -s br.pdb,cl.pdb,me.pdb,nme2.pdb,ome.pdb,ipr.pdb -maxt 1000000
+```
+```
+0000000001 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1Br)Br)Br)Br)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1Br)Br)Br)Br, Formula: C25H5Br31N3O9PS
+0000000002 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1Br)Br)Cl)Br)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1Br)Br)Br)Br, Formula: C25H5Br30ClN3O9PS
+0000000003 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1Br)Br)C)Br)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1Br)Br)Br)Br, Formula: C26H8Br30N3O9PS
+...
+0000999997 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1N(C)C)N(C)C)Br)N(C)C)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1C)OC)N(C)C)N(C)C, Formula: C37H41Br24N8O10PS
+0000999998 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1N(C)C)N(C)C)Cl)N(C)C)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1C)OC)N(C)C)N(C)C, Formula: C37H41Br23ClN8O10PS
+0000999999 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1N(C)C)N(C)C)C)N(C)C)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1C)OC)N(C)C)N(C)C, Formula: C38H44Br23N8O10PS
+0001000000 : S(=O)(=O)(N(C([C@@](OP(=O)(O)O)([C@@](NC(=O)O[C@]1(C(C(OC1(Br)Br)(Br)Br)(Br)Br)Br)(C(c1c(c(c(c(c1N(C)C)N(C)C)N(C)C)N(C)C)Br)(Br)Br)Br)Br)(Br)Br)C(C(C(Br)(Br)Br)(C(Br)(Br)Br)Br)(Br)Br)c1c(c(c(N)c(c1C)OC)N(C)C)N(C)C, Formula: C39H47Br23N9O10PS
+```
 
 
 
