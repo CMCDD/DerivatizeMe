@@ -2,7 +2,7 @@
 
 ## About
 
-DerivatizeMe is primarily a means for very rapid decoration of a molecule that is in 3 dimensions with small substituents; this decoration may be fine tuned to be sparse or exhaustive.
+DerivatizeMe is primarily a means for very rapid decoration of a molecule that is in 3 dimensions with small substituents; this decoration may be fine tuned to be sparse or exhaustive. The decoration involves positioning of the incoming substituent.
 For larger substituents, conformational searching and minimization are possible, with a corresponding decrease in performance. This decoration is driven by hydrogen atoms within the parent molecule.
 
 ## Installation
@@ -117,7 +117,7 @@ The first hydrogen in the molecule is atom #8, the second is #9. The absolute at
 ![alt text](https://github.com/CMCDD/DerivatizeMe/blob/master/graphics/list.png)
 
 ### Example 5 large systems
-The limit here is 10^6. It produces this number of derivatives in just over an hour on one core of an E5-1620 v4. The sdf produced is 9.3GB.
+The limit here has been set to 10^6. It produces these 10^6 derivatives in just over an hour on one core of an E5-1620 v4. The sdf produced is 9.3GB in size.
 ```
 ./dzme -m fosamprenavir.pdb -h all -s br.pdb,cl.pdb,me.pdb,nme2.pdb,ome.pdb,ipr.pdb -maxt 1000000
 ```
