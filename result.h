@@ -192,7 +192,8 @@ public:
    void substitutablehydrogen(int i); //make particular hydrogen have attribute ORIGH
    void makeallhydrogenssubstitutable();//make all hydrogens have attribute ORIGH
    void makeonlyringhydrogenssubstitutable();//make only ring hydrogens substitutable as ORIGH
-   void makerandomhydrogenssubstitutable(int numberofrandom);//only 8
+   void makerandomhydrogenssubstitutable(int numberofrandom);
+   void makenrandomhydrogenssubstitutable(int numberofrandom);
    void intelligentlymakehydrogenssubstitutable();
    void makehydrogenssystematic();
    void set_substupto_and_maxh();//substupto will start off at the first hydrogen to substitute

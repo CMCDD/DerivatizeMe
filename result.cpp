@@ -872,6 +872,62 @@ void result::intelligentlymakehydrogenssubstitutable()
       } 
 }
 
+void result::makenrandomhydrogenssubstitutable(int numberofrandom)
+{
+  int currentlychosen=0;
+  //? how many hydrogens are available?? =N
+  int N=0;
+  int maximum=1000;
+  
+  
+  for(OpenBabel::OBMolAtomIter a(themolecule);a;a++) 
+  {    
+        if((&*a)->IsHydrogen()){N++;}
+  } 
+
+  //std::cout<< "We have a total of " << N << " hydrogen atoms" << std::endl;
+  if(N==0){std::cout << "Error: No hydrogen atoms in this molecule." << std::endl;exit(1);}
+  if(numberofrandom>N){numberofrandom=N;}
+  int proportion=(numberofrandom*1000)/N;
+  
+  int j=0;
+  srand(time(0));
+  while((j<maximum)&&(currentlychosen<numberofrandom))
+  {
+     int i=-1;
+     j++;
+  for(OpenBabel::OBMolAtomIter a(themolecule);a;a++) 
+  {
+         i++;
+         int random = rand() % 1000;        
+         //std::cout << "we have " << N << " hydrogens and proportion is " << proportion << " and random is " << random << std::endl;
+         if((&*a)->IsHydrogen() && (random<proportion) && (getacc(i)!=ORIGH) && (currentlychosen<numberofrandom))
+         {
+             OpenBabel::OBAtom * c;
+            //go through the rest of the atoms in mol, and if not hydrogen and close to the
+            //hydrogen we know the other atom on the bond
+            for(OpenBabel::OBMolAtomIter b(themolecule);b;b++) 
+            {
+              if(!((&*b)->IsHydrogen())&&(AtomDistance(&*a,&*b)<1.2)){c=(&*b);}
+            }
+            if(this->chonly)
+            {               
+              if(c->IsCarbon()){setacc(ORIGH,i);currentlychosen++;};
+            }
+            else
+            {
+              setacc(ORIGH,i);
+              currentlychosen++;
+            }         
+            //setacc(ORIGH,i);
+            //currentlychosen++;
+         }
+  }
+  } 
+  //generate random number between 1 and 1000
+  this->print();
+  // if number < proportion, then it must be substitutable.
+}
 
 void result::makerandomhydrogenssubstitutable(int numberofrandom)
 {
@@ -895,11 +951,29 @@ void result::makerandomhydrogenssubstitutable(int numberofrandom)
          //std::cout << "we have " << N << " hydrogens and proportion is " << proportion << " and random is " << random << std::endl;
          if((&*a)->IsHydrogen() && (random<proportion))
          {
-            setacc(ORIGH,i);
+
+             OpenBabel::OBAtom * c;
+            //go through the rest of the atoms in mol, and if not hydrogen and close to the
+            //hydrogen we know the other atom on the bond
+            for(OpenBabel::OBMolAtomIter b(themolecule);b;b++) 
+            {
+              if(!((&*b)->IsHydrogen())&&(AtomDistance(&*a,&*b)<1.2)){c=(&*b);}
+            }
+            if(this->chonly)
+            {
+              if(c->IsCarbon()){setacc(ORIGH,i);};
+            }
+            else
+            {
+              setacc(ORIGH,i);
+            }         
+
+            //setacc(ORIGH,i);
          }
   } 
   //generate random number between 1 and 1000
   // if number < proportion, then it must be substitutable.
+  this->print();
 }
 
 result & result::operator= (result &other)

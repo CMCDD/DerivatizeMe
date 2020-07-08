@@ -42,6 +42,7 @@
 #define HYDROGENRANDOM 3
 #define HYDROGENALL 4
 #define HYDROGENSYSTEMATIC 5
+#define HYDROGENNEFARIOUS 6
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +161,7 @@ void fix(result thisresult)
            newresult=thisresult;   // copy data from thisresult to each of the result classes
            newresult.setacc(IGNOH,newresult.substupto);
            ///IGNOH
-          int s=newresult.substupto+1;
+           int s=newresult.substupto+1;
            while((newresult.getacc(s)!=ORIGH)&&(s<999)){s++;}; // set substupto in each of them to be the next H.           
            newresult.substupto=s;           
            fix(newresult);           
@@ -227,6 +228,7 @@ int main(int argc, char** argv)
      std::cout << "                    all             {allows substitution of all hydrogens in a systematic manner}" << std::endl;
      std::cout << "                    ring            {allows substitution of all hydrogens attached to rings a systematic manner}" << std::endl;
      std::cout << "                    random  30      {allows substitution of approximately thirty percent of all hydrogens systematically (default)" << std::endl;
+     std::cout << "                    rand 6          {allows substitution of 6 randomly prechosen hydrogen atoms" << std::endl;
      std::cout << "                    systematic      {allows monosubstitution of all hydrogens in a systematic manner}" << std::endl;
      std::cout << " -I substituentdir:" << std::endl;
      std::cout << "                    directory containing substituents (default \"./subs\")" << std::endl;
@@ -371,6 +373,12 @@ int main(int argc, char** argv)
                 if(i+2 == argc){std::cout << "usage -h random percent e.g. -h random 30" << std::endl;exit(1);} 
                 numberofrandom = atoi(argv[i + 2]);
 			        }
+              else if (hydrogenswitchstring.compare("rand")==0)
+              {
+       			    hydrogenswitch = HYDROGENNEFARIOUS; //turns on qthe switch for random substitutions
+                if(i+2 == argc){std::cout << "usage -h rand number e.g. -h rand 6" << std::endl;exit(1);} 
+                numberofrandom = atoi(argv[i + 2]);
+			        }
               else if (hydrogenswitchstring.compare("systematic")==0)
               {
        			    hydrogenswitch = HYDROGENSYSTEMATIC; //non recursive
@@ -430,7 +438,7 @@ int main(int argc, char** argv)
  std::cout << "---------------------------------------------------" << std::endl;                   
  std::cout << "core molecule is --                -m " << coremolecule << std::endl;
  std::cout << "hydrogen list (if used) is --      -h list " << hydrogenlist << std::endl;
- std::cout << "% random hydrogens (if used) is -- -h random " << numberofrandom << std::endl;
+ std::cout << "% or number random hydrogens (if used) is -- -h rand(om) " << numberofrandom << std::endl;
  std::cout << "substituents are located --        -I  " << substituentpath << std::endl;
  std::cout << "the good stuff gets dumped at --   -O  " << outputdirectory << std::endl;
  std::cout << "   with a format of --             -Of " << outputformat << std::endl;
@@ -546,6 +554,10 @@ int main(int argc, char** argv)
   else if (hydrogenswitch == HYDROGENRANDOM)
   {
    firstnode.makerandomhydrogenssubstitutable(numberofrandom);
+  }
+  else if (hydrogenswitch == HYDROGENNEFARIOUS)
+  {
+   firstnode.makenrandomhydrogenssubstitutable(numberofrandom);
   }
   else if (hydrogenswitch == HYDROGENSYSTEMATIC)
   {
