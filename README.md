@@ -5,6 +5,11 @@
 DerivatizeMe is primarily a means for very rapid decoration of a molecule that is in 3 dimensions with small substituents; this decoration may be fine tuned to be sparse or exhaustive. The decoration involves positioning of the incoming substituent.
 For larger substituents, conformational searching and minimization are possible, with a corresponding decrease in performance. This decoration is driven by hydrogen atoms within the parent molecule.
 
+If you use this software within a project, please cite: 
+_Journal of Computational Biophysics and Chemistry_, 20 (03), pp. 233-250 (2021)
+**Introducing DerivatizeME and its Application in the Augmentation of a Natural Product Library**
+Lester T. Sigauke, Özlem Taştan Bishop and Kevin A. Lobb, https://doi.org/10.1142/S2737416521500101
+
 ## Installation
 
 ```
